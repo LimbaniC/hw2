@@ -20,6 +20,12 @@ public class ExpenseTrackerView extends JFrame {
   private JTextField categoryField;
   private DefaultTableModel model;
   
+  private JFormattedTextField minAmountField;
+  private JFormattedTextField maxAmountField;
+
+  private JFormattedTextField filterAmountField;
+  private JTextField filterCategoryField;
+  private JButton filterButton;
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker"); // Set title
@@ -41,6 +47,19 @@ public class ExpenseTrackerView extends JFrame {
     JLabel categoryLabel = new JLabel("Category:");
     categoryField = new JTextField(10);
 
+    JLabel minAmountLabel = new JLabel("Min Amount:");
+    minAmountField = new JFormattedTextField(format);
+    minAmountField.setColumns(6);
+
+    JLabel maxAmountLabel = new JLabel("Max Amount:");
+    maxAmountField = new JFormattedTextField(format);
+    maxAmountField.setColumns(6);
+
+    JLabel filterCategoryLabel = new JLabel("Filter Category:");
+    filterCategoryField = new JTextField(8);
+
+    filterButton = new JButton("Apply Filter");
+
     // Create table
     transactionsTable = new JTable(model);
   
@@ -51,6 +70,18 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
     inputPanel.add(addTransactionBtn);
+
+    JPanel filterPanel = new JPanel();
+    filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+    filterPanel.setBorder(BorderFactory.createTitledBorder("Filters"));
+    filterPanel.add(minAmountLabel);
+    filterPanel.add(minAmountField);
+    filterPanel.add(maxAmountLabel);
+    filterPanel.add(maxAmountField);
+    filterPanel.add(filterCategoryLabel);
+    filterPanel.add(filterCategoryField);
+    filterPanel.add(filterButton);
+
   
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(addTransactionBtn);
@@ -58,6 +89,7 @@ public class ExpenseTrackerView extends JFrame {
     // Add panels to frame
     add(inputPanel, BorderLayout.NORTH);
     add(new JScrollPane(transactionsTable), BorderLayout.CENTER); 
+    add(filterPanel, BorderLayout.WEST);
     add(buttonPanel, BorderLayout.SOUTH);
   
     // Set frame properties
@@ -125,4 +157,21 @@ public class ExpenseTrackerView extends JFrame {
   public void setCategoryField(JTextField categoryField) {
     this.categoryField = categoryField;
   }
+
+  public JFormattedTextField getMinAmountField(){
+    return minAmountField;
+  }
+
+  public JFormattedTextField getMaxAmountField(){
+    return maxAmountField;
+  }
+
+  public JTextField getFilterCategoryField() {
+    return filterCategoryField;
+  }
+
+  public JButton getFilterButton() {
+    return filterButton;
+  }
+
 }
